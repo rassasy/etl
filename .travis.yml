@@ -5,7 +5,7 @@ python:
 install:
 - pip install -r requirements.txt
 script:
-- pytest
+- python -m pytest
 before_install:
 - openssl aes-256-cbc -K $encrypted_84b4fd684625_key -iv $encrypted_84b4fd684625_iv
   -in .secrets/encrypted/sheets-credentials.enc -out .secrets/decrypted/sheets-credentials.json
