@@ -20,6 +20,4 @@ def test_headers():
     assert len(HEADERS) == len(expected_headers)
 
     for expected_header in expected_headers:
-        print(f"EXPECTED: {expected_headers.index(expected_header)}")
-        print(f"ACTUAL: {HEADERS[expected_header]}")
         assert expected_headers.index(expected_header) == HEADERS[expected_header]

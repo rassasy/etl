@@ -20,8 +20,4 @@ def init():
 
     return headers, restaurants
 
-
-def get_restaurant(name):
-    return [restaurant for restaurant in RESTAURANTS if restaurant[HEADERS['Name']] == name]
-
 HEADERS, RESTAURANTS = init()

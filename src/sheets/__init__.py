@@ -1,1 +1,1 @@
-from .sheets import HEADERS, get_restaurant
+from .sheets import HEADERS, RESTAURANTS
