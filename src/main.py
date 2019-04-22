@@ -2,6 +2,7 @@ from models import Headers, Restaurant
 from sheets import get_values
 from validation import validate
 
+
 def parse_restaurants(data) -> []:
     restaurants = []
 

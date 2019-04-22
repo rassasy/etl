@@ -1,23 +1,8 @@
-from src.sheets import HEADERS
+from src.sheets import get_header_values
+from src.models import Headers
+
+header_values = get_header_values()
 
 def test_headers():
-    print(HEADERS)
-    expected_headers = ['Name', 
-                        'City', 
-                        'State', 
-                        'Featured On', 
-                        'Cuisine', 
-                        'Description', 
-                        'Notes', 
-                        'Street Address', 
-                        'Country',
-                        'Visited',
-                        'Keywords',
-                        'Yelp Rating',
-                        'Website',
-                        'Yelp']
-    
-    assert len(HEADERS) == len(expected_headers)
-
-    for expected_header in expected_headers:
-        assert expected_headers.index(expected_header) == HEADERS[expected_header]
+    for header in Headers:
+        assert header.name.replace('_', ' ').lower() == header_values[header.value].lower()

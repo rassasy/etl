@@ -1,6 +1,6 @@
 from models import Headers
 
-restaurant_set = set()
+RESTAURANT_SET = set()
 
 def validate(restaurant):
     errors = []
@@ -24,7 +24,7 @@ def validate(restaurant):
         print_error(restaurant, filtered_list)
         return False
     
-    restaurant_set.add(restaurant)
+    RESTAURANT_SET.add(restaurant)
     return True
 
 
@@ -66,7 +66,7 @@ def validate_yelp_site(yelp_site) -> dict:
     return is_required(Headers.YELP_SITE, yelp_site)
 
 def is_unique(restaurant):
-    return generate_error(restaurant, "Restaurant must be a unique entry!") if restaurant in restaurant_set else {}
+    return generate_error(restaurant, "Restaurant must be a unique entry!") if restaurant in RESTAURANT_SET else {}
         
 def is_required(header, value) -> dict:
     return generate_field_error(header, value, f"Field '{header.name}' must not be empty") if not value else {}
