@@ -1,1 +1,1 @@
-from .sheets import HEADERS, RESTAURANTS
+from .sheets import get_header_values, get_values

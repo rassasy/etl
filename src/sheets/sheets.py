@@ -1,5 +1,5 @@
-import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import gspread
 
 
 def init():
@@ -10,14 +10,16 @@ def init():
 
     gc = gspread.authorize(credentials)
 
-    sheet = gc.open('Food Files')
-    restaurants = sheet.worksheet('Development').get_all_values()
-    header_values = list(filter(None, restaurants.pop(0)))
-    headers = {}
-    
-    for name in header_values:
-        headers[name.strip()] = header_values.index(name)
+    worksheet = gc.open('Food Files').worksheet('Development')
+    values = worksheet.get_all_values()
+    header_values = list(filter(None, values.pop(0)))
 
-    return headers, restaurants
+    return header_values, values
 
-HEADERS, RESTAURANTS = init()
+def get_header_values():
+    return header_values
+
+def get_values():
+    return values
+
+header_values, values = init()
