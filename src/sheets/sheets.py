@@ -2,6 +2,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 import gspread
 
+SHEET_NAME = 'Food Files'
+WORKSHEET = 'Development'
 
 def init():
     scope = ['https://spreadsheets.google.com/feeds',
@@ -11,7 +13,7 @@ def init():
 
     gc = gspread.authorize(credentials)
 
-    worksheet = gc.open('Food Files').worksheet('Development')
+    worksheet = gc.open(SHEET_NAME).worksheet(WORKSHEET)
     values = worksheet.get_all_values()
     header_values = list(filter(None, values.pop(0)))
 
