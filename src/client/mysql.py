@@ -1,5 +1,6 @@
 import pymysql
 
+
 def get_connection():
     return pymysql.connect(host='localhost',
                            database='rassasy',
@@ -8,20 +9,20 @@ def get_connection():
 
 def insert_restaurants(restaurants):
     try:
-        conn = get_connection()
-        conn.autocommit = False
-        cursor = conn.cursor()
+        connection = get_connection()
+        connection.autocommit = False
+        cursor = connection.cursor()
 
         for restaurant in restaurants:
             restaurant.toSQL(cursor)
 
-        conn.commit()
+        connection.commit()
         print ("Record Updated successfully ")
     except Exception as error :
         print(f"Failed to update records due to {error}. Rolling back transaction...")
-        conn.rollback()
+        connection.rollback()
     finally:
-        if conn.open:
+        if connection.open:
             cursor.close()
-            conn.close()
+            connection.close()
             print("MySQL connection closed successfully")
