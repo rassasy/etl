@@ -1,0 +1,1 @@
+from .mysql import insert_restaurants

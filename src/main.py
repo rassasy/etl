@@ -1,3 +1,4 @@
+from client import insert_restaurants
 from models import Headers, Restaurant
 from sheets import get_values
 from validation import validate
@@ -15,3 +16,5 @@ def parse_restaurants(data) -> []:
 
 data = get_values()
 restaurants = parse_restaurants(data)
+
+insert_restaurants(restaurants)
