@@ -103,6 +103,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# IDE 
+.vscode/
+.idea/
+
 # Rassasy
 .secrets/decrypted/*
 !.secrets/decrypted/.gitkeep
