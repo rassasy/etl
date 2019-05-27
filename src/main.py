@@ -1,4 +1,4 @@
-from client import insert_restaurants
+from client import insert_restaurants, insert_restaurant_links
 from models import Headers, Restaurant
 from sheets import get_values
 from validation import validate
@@ -17,4 +17,6 @@ def parse_restaurants(data) -> []:
 data = get_values()
 restaurants = parse_restaurants(data)
 
+# TODO refactor into one db client 
 insert_restaurants(restaurants)
+insert_restaurant_links(restaurants)

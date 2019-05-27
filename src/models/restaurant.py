@@ -1,4 +1,4 @@
-from . import Address, Feature, Headers
+from . import Feature, Headers, Location
 from .tag import Tag
 
 import json
@@ -16,7 +16,7 @@ class Restaurant(object):
         self.cuisine = data[Headers.CUISINE.value].splitlines()
         self.description = data[Headers.DESCRIPTION.value]
         self.notes = data[Headers.NOTES.value]
-        self.street_address = list(map(lambda value: Address(value), data[Headers.STREET_ADDRESS.value].splitlines()))
+        self.street_address = list(map(lambda value: Location(self.city, self.state, value), data[Headers.STREET_ADDRESS.value].splitlines()))
         self.country = data[Headers.COUNTRY.value]
         self.visited = data[Headers.VISITED.value]
         self.keywords = list(map(lambda keyword: Tag(keyword), data[Headers.KEYWORDS.value].splitlines()))
@@ -58,12 +58,24 @@ class Restaurant(object):
         for feature in self.featured_on:
             conn.execute('INSERT INTO rassasy.feature VALUES (%s, %s, %s)', (str(uuid.uuid4()), feature.name, feature.type.name))
         
-        for address in self.street_address:
-            addressId = str(uuid.uuid4())
-            conn.execute('INSERT INTO rassasy.location VALUES (%s, %s)', (addressId, address.value))
-            conn.execute('INSERT INTO rassasy.located VALUES (%s, %s, %s)', (str(uuid.uuid4()), self.id, addressId))
+        for location in self.street_address:
+            locationId = str(uuid.uuid4())
+            conn.execute('INSERT INTO rassasy.location VALUES (%s, %s)', (locationId, location.street_address))
+            conn.execute('INSERT INTO rassasy.located VALUES (%s, %s, %s)', (str(uuid.uuid4()), self.id, locationId))
 
         for tag in self.keywords:
             tagId = str(uuid.uuid4())
             conn.execute('INSERT INTO rassasy.tag VALUES (%s, %s)', (tagId, tag.name))
             conn.execute('INSERT INTO rassasy.tagged VALUES (%s, %s, %s)', (str(uuid.uuid4()), self.id, tagId))
+
+    def toNeo4j(self, session):
+        session.run(f"CREATE (:Restaurant {{ id: \"{self.id}\" }})")
+
+        for feature in self.featured_on:
+            feature.toNeo4j(session, self.id)
+
+        for location in self.street_address:
+            location.toNeo4j(session, self.id)
+
+        for tag in self.keywords:
+            tag.toNeo4j(session, self.id)
