@@ -14,6 +14,7 @@ def insert_restaurants(restaurants):
         cursor = connection.cursor()
 
         for restaurant in restaurants:
+            print (f"Inserting {restaurant.name} into the MySQL database...")
             restaurant.toSQL(cursor)
 
         connection.commit()
