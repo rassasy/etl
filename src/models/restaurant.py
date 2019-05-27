@@ -1,4 +1,4 @@
-from . import Location, Feature, Headers
+from . import Feature, Headers, Location
 from .tag import Tag
 
 import json
@@ -60,7 +60,7 @@ class Restaurant(object):
         
         for location in self.street_address:
             locationId = str(uuid.uuid4())
-            conn.execute('INSERT INTO rassasy.location VALUES (%s, %s)', (locationId, location.value))
+            conn.execute('INSERT INTO rassasy.location VALUES (%s, %s)', (locationId, location.street_address))
             conn.execute('INSERT INTO rassasy.located VALUES (%s, %s, %s)', (str(uuid.uuid4()), self.id, locationId))
 
         for tag in self.keywords:

@@ -17,4 +17,6 @@ def parse_restaurants(data) -> []:
 data = get_values()
 restaurants = parse_restaurants(data)
 
+# TODO refactor into one db client 
+insert_restaurants(restaurants)
 insert_restaurant_links(restaurants)
